@@ -1,5 +1,17 @@
-# auth-totp
+# Introduction
 like Google Authenticator implement the Time-Based One-Time Password (TOTP) algorithm, demo implemented by java .etc
+
+# QR Url Format
+> otpauth://totp/VENDOR%3AUSER?secret=KEY&issuer=VENDOR
+
+%3A is URL Encoded Char ':' and issuer=VENDOR used by Google Authenticator.
+
+```
+For exmaple, otpauth://totp/Google%3Atest@gmail.com?secret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&issuer=Google
+VENDOR=Google
+USER=test@gmail.com
+KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
 # Pseudo Code [1]
 ``` go
