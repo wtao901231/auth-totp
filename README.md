@@ -2,13 +2,15 @@
 like Google Authenticator implement the Time-Based One-Time Password (TOTP) algorithm, demo implemented by java .etc
 
 # Pseudo Code [1]
+``` go
 original_secret = xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 secret = BASE32_DECODE(TO_UPPERCASE(REMOVE_SPACES(original_secret)))
 input = CURRENT_UNIX_TIME() / 30
 hmac = SHA1(secret + SHA1(secret + input))
 four_bytes = hmac[LAST_BYTE(hmac):LAST_BYTE(hmac) + 4]
 large_integer = INT(four_bytes)
-small_integer = large_integer % 1,000,000
+small_integer = large_integer % 1000000
+```
 
 # See Also
 1. How Google Authenticator Works, https://garbagecollected.org/2014/09/14/how-google-authenticator-works/
