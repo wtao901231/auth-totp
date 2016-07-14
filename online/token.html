@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div>
+
+            <div class="row">
+
+                <form>
+                    <fieldset>
+
+                        <div class="clearfix">
+                            <label for="secret">6-digits Pin Code</label>
+                            <div class="input"><input type="password" maxlength="6" size="30" name="secret" id="secret" class="xlarge" /></div>
+                        </div>
+                        <div class="clearfix">
+                            <label>Token</label>
+                            <span class="label label-primary" id='otp'></span>
+                            <canvas id="timerCanvas" width="20" height="20"></canvas>
+                        </div>
+                        <div class="clearfix">
+                            <label>Updating in</label>
+                            <span id='updatingIn'></span>
+                        </div>
+                        <div class="clearfix">
+                            <label>Your Key</label>
+                            <div><span class="label label-primary" id='pkey'></span></div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="sha.js"></script>
+    <script type="text/javascript" src="token-gen.js"></script>
+    <script>
+        window.requestAnimFrame = (function(callback) {
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                function(callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        function drawFrame(context, degree) {
+            context.beginPath();
+            context.arc(8, 8, 4, (degree / 360 * 2 - 1 / 2) * Math.PI, (2 - 1 / 2) * Math.PI);
+            context.lineWidth = 8
+            context.strokeStyle = '#428BCA';
+            context.stroke();
+        }
+
+        function animateDrawFrame(canvas, context, startTime) {
+            // update
+            var time = (new Date()).getTime();
+            var interval = 30000;
+
+            // clear
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawFrame(context, (time % interval) / interval * 360);
+
+            requestAnimFrame(function() {
+                animateDrawFrame(canvas, context, startTime);
+            });
+        }
+
+        var canvas = document.getElementById('timerCanvas');
+        var context = canvas.getContext('2d');
+        var startTime = (new Date()).getTime();
+        animateDrawFrame(canvas, context, startTime);
+    </script>
+</body>
+
+</html>
